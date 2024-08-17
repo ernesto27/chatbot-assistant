@@ -192,7 +192,7 @@ export default function Home() {
         {/* <!-- Heading --> */}
         <div className="flex flex-col space-y-1.5 pb-6">
           <h2 className="font-semibold text-lg tracking-tight">Ask questions</h2>
-          <p className="text-xs text-[#6b7280] leading-3">Powered by Open AI </p>
+          <p className="text-xs text-[#6b7280] leading-3">Powered by Open AI - Ask questions about AWS CERTIFICATION</p>
           <p className="text-xs text-[#6b7280] leading-3">Answers are probabalistic and can be wrong. ChatGPT is not intelligent.</p>
         </div>
 
@@ -298,7 +298,7 @@ export default function Home() {
             <div className="flex items-center justify-center w-full space-x-2">
               <input
                 className="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
-                placeholder="Ask a question about Ashley Davis"
+                placeholder="Pregunta sobre AWS Certificacion..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 disabled={runId !== undefined}
@@ -315,7 +315,7 @@ export default function Home() {
             </div>
           </div>
   
-          <div className="text-sm ml-3 pt-3 pr-1 text-gray-500">Example: sobre que puedo preguntar?</div>
+          <div className="text-sm ml-3 pt-3 pr-1 text-gray-500">Example: informacion sobre programa de certificacion</div>
         </div>
   
         <div className="absolute top-[10px] right-[10px] cursor-pointer" onClick={onResetThread}>
