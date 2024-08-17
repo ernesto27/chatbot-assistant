@@ -1,4 +1,4 @@
-package goapi
+package goservice
 
 import "net/http"
 

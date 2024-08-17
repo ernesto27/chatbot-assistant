@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"golangnext/goapi"
+	"golangnext/goservice"
 	"net/http"
 	"os"
 )
@@ -15,7 +15,7 @@ type BodyChatNew struct {
 
 func ChatSend(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		aiService := goapi.GetAIService()
+		aiService := goservice.GetAIService()
 
 		var body BodyChatNew
 		err := json.NewDecoder(r.Body).Decode(&body)
@@ -39,7 +39,7 @@ func ChatSend(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		goapi.ResponseJson(w, jsonString, http.StatusOK)
+		goservice.ResponseJson(w, jsonString, http.StatusOK)
 		return
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

@@ -3,7 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"golangnext/goapi"
+
+	"golangnext/goservice"
 	"net/http"
 )
 
@@ -13,7 +14,7 @@ type Body struct {
 }
 
 func ChatList(w http.ResponseWriter, r *http.Request) {
-	aiService := goapi.GetAIService()
+	aiService := goservice.GetAIService()
 
 	var body Body
 	err := json.NewDecoder(r.Body).Decode(&body)
@@ -37,6 +38,6 @@ func ChatList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	goapi.ResponseJson(w, jsonString, http.StatusOK)
+	goservice.ResponseJson(w, jsonString, http.StatusOK)
 
 }

@@ -1,4 +1,4 @@
-package goapi
+package goservice
 
 import (
 	"context"
@@ -8,10 +8,13 @@ import (
 )
 
 type AIService interface {
-	// TODO, not use open ai types on response
+	// TODO, fix not use openai types
 	GetMessagesChat(threadID string, runID string) (Response, error)
 	CreateNewChat() (newChatResponse, error)
 	CreateNewMessageChat(threadID string, content string, assistantID string) (newMessageResponse, error)
+	CreateAssistant(name string, instructions string) (string, error)
+	CreateFile(pathFile string) (string, error)
+	CreateAssistantFile(assistantID string, fileID string) (string, error)
 }
 
 type OpenAIService struct {
@@ -88,6 +91,38 @@ func (openAI *OpenAIService) CreateNewMessageChat(threadID string, content strin
 	newMessageResponse.RunID = run.ID
 
 	return newMessageResponse, nil
+}
+
+func (openAI *OpenAIService) CreateAssistant(name string, instructions string) (string, error) {
+	temperature := float32(0)
+	assistant, err := openAI.client.CreateAssistant(context.TODO(), openai.AssistantRequest{
+		Name:         &name,
+		Model:        "gpt-4o-mini",
+		Instructions: &instructions,
+		Tools: []openai.AssistantTool{
+			{
+				Type: openai.AssistantToolTypeFileSearch,
+			},
+		},
+		Temperature: &temperature,
+	})
+
+	return assistant.ID, err
+}
+
+func (openAI *OpenAIService) CreateFile(pathFile string) (string, error) {
+	fileUpload, err := openAI.client.CreateFile(context.TODO(), openai.FileRequest{
+		FilePath: pathFile,
+		Purpose:  string(openai.PurposeAssistants),
+	})
+	return fileUpload.ID, err
+}
+
+func (openAI *OpenAIService) CreateAssistantFile(assistantID string, fileID string) (string, error) {
+	_, err := openAI.client.CreateAssistantFile(context.TODO(), assistantID, openai.AssistantFileRequest{
+		FileID: fileID,
+	})
+	return fileID, err
 }
 
 func GetAIService() AIService {
