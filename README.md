@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Chatbot assistant
 
-First, run the development server:
+## Setup - requiremente
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+You need a apikey from openAI 
+
+https://platform.openai.com/api-keys
+
+Create assistant,  associate files, documents via CLI
+
+On terminal run
+```sh
+export OPENAI_API_KEY=[yourapikey]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create assistant 
+```sh
+go run goservice/cmd/cmd.go --cmd create-assistant --name myassistant --instructions "your system instruction"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Upload file 
+```sh
+go run goservice/cmd/cmd.go --cmd create-file --file /yourpathfile
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Associate file to assistant
+Upload file 
+```sh
+go run goservice/cmd/cmd.go --cmd create-assistant-file --assistant-id yourAssistantID  --file-id fileID
+```
 
-## Learn More
+You can also create the assistan on the openAI dashboard 
 
-To learn more about Next.js, take a look at the following resources:
+https://platform.openai.com/assistants/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Run API service 
 
-## Deploy on Vercel
+On terminal run
+```sh
+export OPENAI_API_KEY=[yourapikey]
+export ASSISTANT_ID=[assistantID]
+```
+Run go api service
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+go run .
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Run front
+
+```sh
+npm i 
+npm run dev
+```
+
+
+## Vercel configuration 
+
+On your vercel project setup, go to settings => Environment variables and add this values.
+
+ASSISTANT_ID => yourassistanid
+
+OPENAI_API_KEY => yourapikey
+
+NEXT_PUBLIC_ENV => production
+
+
+
+
+
+
+
+
+

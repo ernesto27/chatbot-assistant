@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Markdown from 'markdown-to-jsx';
